@@ -9,15 +9,14 @@ import { NextResponse } from "next/server";
 //   { params }: { params: { id: string } }
 // ) {
 
-//export async function PUT(req: Request, { params }) {
+// export async function PUT(
+//   req: Request,
+//   { params }: { params: Record<string, string> }
+// ) {
 // params.id
 
-export async function PUT(
-  req: Request,
-  { params }: { params: Record<string, string> }
-) {
+export async function PUT(req: Request, { params }) {
   // params.id
-
   try {
     const formData = await req.formData();
     const name = formData.get("name")?.toString().trim();
@@ -91,11 +90,13 @@ export async function PUT(
 //   { params }: { params: { id: string } }
 // ) {
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: Record<string, string> }
-) {
-  // params.id
+// export async function DELETE(
+//   req: Request,
+//   { params }: { params: Record<string, string> }
+// ) {
+// params.id
+
+export async function DELETE(req: Request, { params }) {
   try {
     const clientId = parseInt(params.id);
 
