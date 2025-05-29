@@ -17,6 +17,7 @@ import { NextResponse } from "next/server";
 
 //export async function PUT(req: Request, { params }) {
 // params.id
+export const runtime = "nodejs";
 
 export async function PUT(req: Request, { params }: any) {
   try {
