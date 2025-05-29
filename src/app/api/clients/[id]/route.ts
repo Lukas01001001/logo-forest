@@ -15,8 +15,10 @@ import { NextResponse } from "next/server";
 // ) {
 // params.id
 
-export async function PUT(req: Request, { params }) {
-  // params.id
+//export async function PUT(req: Request, { params }) {
+// params.id
+
+export async function PUT(req: Request, { params }: any) {
   try {
     const formData = await req.formData();
     const name = formData.get("name")?.toString().trim();
@@ -96,7 +98,9 @@ export async function PUT(req: Request, { params }) {
 // ) {
 // params.id
 
-export async function DELETE(req: Request, { params }) {
+// export async function DELETE(req: Request, { params }) {
+
+export async function DELETE(req: Request, { params }: any) {
   try {
     const clientId = parseInt(params.id);
 
