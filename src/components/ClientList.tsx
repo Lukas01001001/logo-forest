@@ -11,6 +11,7 @@
 // - avoid passing state via the URL (e.g., ?ids=...) after the initial navigation
 //*******************************************************************************************/
 
+import { Suspense } from "react";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -144,51 +145,53 @@ export default function ClientList() {
   };
 
   return (
-    <div>
-      <ClientListHeader
-        selectedCount={selectedClients.length}
-        onReset={handleReset}
-        onGenerate={handleGenerate}
-        layout={layout}
-        onToggleLayout={() =>
-          setLayout((prev) => (prev === "grid" ? "list" : "grid"))
-        }
-      />
+    <Suspense fallback={<div>Loading...</div>}>
+      <div>
+        <ClientListHeader
+          selectedCount={selectedClients.length}
+          onReset={handleReset}
+          onGenerate={handleGenerate}
+          layout={layout}
+          onToggleLayout={() =>
+            setLayout((prev) => (prev === "grid" ? "list" : "grid"))
+          }
+        />
 
-      <div
-        className={`grid gap-6 ${
-          layout === "grid" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
-        }`}
-      >
-        {clients.map((client, index) => {
-          const isLast = index === clients.length - 1;
-          return (
-            <div key={client.id} ref={isLast ? lastClientRef : null}>
-              <ClientCard
-                id={client.id}
-                name={client.name}
-                industry={client.industry}
-                logoBlob={client.logoBlob}
-                logoType={client.logoType}
-                selected={selectedClients.includes(client.id)}
-                toggle={() => toggleClient(client.id)}
-                queryString={queryString}
-                selectedIds={selectedClients}
-              />
-            </div>
-          );
-        })}
-      </div>
-
-      {!loading && clients.length === 0 && (
-        <EmptyState message="No clients found matching the selected filters." />
-      )}
-
-      {loading && (
-        <div className="flex justify-center my-6">
-          <Spinner />
+        <div
+          className={`grid gap-6 ${
+            layout === "grid" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
+          }`}
+        >
+          {clients.map((client, index) => {
+            const isLast = index === clients.length - 1;
+            return (
+              <div key={client.id} ref={isLast ? lastClientRef : null}>
+                <ClientCard
+                  id={client.id}
+                  name={client.name}
+                  industry={client.industry}
+                  logoBlob={client.logoBlob}
+                  logoType={client.logoType}
+                  selected={selectedClients.includes(client.id)}
+                  toggle={() => toggleClient(client.id)}
+                  queryString={queryString}
+                  selectedIds={selectedClients}
+                />
+              </div>
+            );
+          })}
         </div>
-      )}
-    </div>
+
+        {!loading && clients.length === 0 && (
+          <EmptyState message="No clients found matching the selected filters." />
+        )}
+
+        {loading && (
+          <div className="flex justify-center my-6">
+            <Spinner />
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 }
