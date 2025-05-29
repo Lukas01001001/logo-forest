@@ -4,10 +4,20 @@ import { prisma } from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
+// export async function PUT(
+//   req: Request,
+//   { params }: { params: { id: string } }
+// ) {
+
+//export async function PUT(req: Request, { params }) {
+// params.id
+
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Record<string, string> }
 ) {
+  // params.id
+
   try {
     const formData = await req.formData();
     const name = formData.get("name")?.toString().trim();
@@ -76,10 +86,16 @@ export async function PUT(
   }
 }
 
+// export async function DELETE(
+//   _: Request,
+//   { params }: { params: { id: string } }
+// ) {
+
 export async function DELETE(
-  _: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Record<string, string> }
 ) {
+  // params.id
   try {
     const clientId = parseInt(params.id);
 
