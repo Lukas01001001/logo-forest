@@ -8,6 +8,8 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 import Spinner from "@/components/ui/Spinner";
 
+export const dynamic = "force-dynamic";
+
 // SSR - industry
 export default async function ClientsPage() {
   const industries: { name: string }[] = await prisma.industry.findMany();
