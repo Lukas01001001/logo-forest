@@ -1,5 +1,7 @@
 // src/app/clients/new/page.tsx
 
+export const dynamic = "force-dynamic";
+
 import ClientForm from "@/components/ClientForm";
 import { prisma } from "@/lib/db";
 
